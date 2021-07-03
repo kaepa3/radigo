@@ -38,3 +38,6 @@ test-cover:
 
 docker-build:
 	docker build -t yyoshiki41/radigo .
+
+pi:
+	GOOS=linux GOARCH=arm GOARM=6 go build -o radipi -v
