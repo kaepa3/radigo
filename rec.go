@@ -148,6 +148,8 @@ func (c *recCommand) Run(args []string) int {
 		retErr = os.Rename(concatedFile, output.AbsPath())
 	case AudioFormatMP3:
 		retErr = ConvertAACtoMP3(ctx, concatedFile, output.AbsPath())
+	case AudioFormat64kMP3:
+		retErr = ConvertAACtoMP3WithBR(ctx, concatedFile, output.AbsPath(), "64k")
 	}
 	if retErr != nil {
 		c.ui.Error(fmt.Sprintf(

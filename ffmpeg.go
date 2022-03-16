@@ -69,9 +69,27 @@ func ConvertAACtoMP3(ctx context.Context, input, output string) error {
 
 	f.setInput(input)
 	f.setArgs(
-		"-c:a", "libmp3lame",
-		"-ac", "2",
+		"-c:a", "libmp3lame", // codec
+		"-ac", "2", //ch
 		"-q:a", "2",
+		"-y", // overwrite the output file without asking
+	)
+	// TODO: Collect log
+	return f.run(output)
+}
+
+func ConvertAACtoMP3WithBR(ctx context.Context, input, output string, bitrate string) error {
+	f, err := newFfmpeg(ctx)
+	if err != nil {
+		return err
+	}
+
+	f.setInput(input)
+	f.setArgs(
+		"-c:a", "libmp3lame", // codec
+		"-ac", "2", //ch
+		"-q:a", "2",
+		"-b:a", bitrate,
 		"-y", // overwrite the output file without asking
 	)
 	// TODO: Collect log
