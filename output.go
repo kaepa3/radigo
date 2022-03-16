@@ -77,8 +77,15 @@ func (c *OutputConfig) AudioFormat() string {
 }
 
 func (c *OutputConfig) AbsPath() string {
-	name := fmt.Sprintf("%s.%s", c.FileBaseName, c.FileFormat)
+	name := fmt.Sprintf("%s.%s", c.FileBaseName, c.getFileFormat())
 	return filepath.Join(c.DirFullPath, name)
+}
+
+func (c *OutputConfig) getFileFormat() string {
+	if c.FileFormat == AudioFormat64kMP3 {
+		return AudioFormatMP3
+	}
+	return c.FileFormat
 }
 
 func (c *OutputConfig) IsExist() bool {

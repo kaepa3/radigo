@@ -45,7 +45,7 @@ func (c *recCommand) Run(args []string) int {
 			"Invalid start time format '%s': %s", start, err))
 		return 1
 	}
-	if fileType != AudioFormatAAC && fileType != AudioFormatMP3 {
+	if fileType != AudioFormatAAC && fileType != AudioFormatMP3 && fileType != AudioFormat64kMP3 {
 		c.ui.Error(fmt.Sprintf(
 			"Unsupported audio format: %s", fileType))
 		return 1
@@ -147,8 +147,10 @@ func (c *recCommand) Run(args []string) int {
 	case AudioFormatAAC:
 		retErr = os.Rename(concatedFile, output.AbsPath())
 	case AudioFormatMP3:
+		c.ui.Error(fmt.Sprintf("this!!: %s", output.AbsPath()))
 		retErr = ConvertAACtoMP3(ctx, concatedFile, output.AbsPath())
 	case AudioFormat64kMP3:
+		c.ui.Error(fmt.Sprintf("this!!: %s", output.AbsPath()))
 		retErr = ConvertAACtoMP3WithBR(ctx, concatedFile, output.AbsPath(), "64k")
 	}
 	if retErr != nil {
